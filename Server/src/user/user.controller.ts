@@ -18,12 +18,14 @@ import { Response } from "express";
 import { JwtAuthGuard } from "src/auth/guards/jwt-auth.guard";
 import { GetUser } from "src/auth/decorators/get-user.decorator";
 import { jwtPayload } from "src/auth/types/payload.type";
-
+import { ApiOperation, ApiTags } from "@nestjs/swagger";
+@ApiTags("User")
 @Controller("user")
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Post("/signup")
+  @ApiOperation({summary : "Create a new user"})
   async create(
     @Body() createUserDto: CreateUserDto,
     @Res({ passthrough: true }) res: Response,
@@ -36,6 +38,7 @@ export class UserController {
     };
   }
   @Post("/signin")
+  @ApiOperation({summary : "Login a user"})
   async login(
     @Body() createUserDto: CreateUserDto,
     @Res({ passthrough: true }) res: Response,
@@ -48,6 +51,7 @@ export class UserController {
     };
   }
   @Get("")
+  @ApiOperation({summary : "Get logged in user details"})
   @UseGuards(JwtAuthGuard)
   async findOne(@GetUser() user: jwtPayload) {
     const userObj = await this.userService.findOne(user.id);
@@ -56,12 +60,14 @@ export class UserController {
   }
 
   @Patch("")
+  @ApiOperation({summary : "Update logged in user details"})
   @UseGuards(JwtAuthGuard)
   update(@GetUser() user: jwtPayload, @Body() updateUserDto: UpdateUserDto) {
     return this.userService.update(user.id, updateUserDto);
   }
 
   @Delete(":id")
+  @ApiOperation({summary : "Delete logged in user"})
   @UseGuards(JwtAuthGuard)
   remove(@GetUser() user: jwtPayload) {
     return this.userService.remove(user.id);
