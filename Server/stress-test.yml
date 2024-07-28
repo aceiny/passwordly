@@ -1,0 +1,13 @@
+config:
+  target: "http://localhost:3000/"  # Replace with your API URL
+  phases:
+    - duration: 30
+      arrivalRate: 5
+      rampTo: 1000
+      name: "load"
+
+scenarios:
+  - name: "Get all Surveys"
+    flow:
+      - get:
+          url: "/ "
