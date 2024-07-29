@@ -4,7 +4,6 @@ import React from 'react'
 import DiscordLogo from "@/public/discord.png"
 import { RiArrowRightWideLine } from 'react-icons/ri'
 const SavedAppCard = ({data} : any) => {
-  console.log(data)
   return (
     <div className='SavedAppCard min-w-[500px] '>
         <section className='flex items-center gap-4'>
