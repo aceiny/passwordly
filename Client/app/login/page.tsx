@@ -15,15 +15,8 @@ export default function Page() {
     const router = useRouter()
     const loginMutation = useMutation({
         mutationFn: async (values: { username: string; password: string }) => {//
-            const response = await fetch(process.env.NEXT_PUBLIC_API_URL+'/user/signin', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                credentials: "include",
-                body: JSON.stringify(values)
-            });
-            return response.json();
+            const response = await api.post('/user/signin', values);
+            return response.data;
         },
         onSuccess: () => {
             toast({

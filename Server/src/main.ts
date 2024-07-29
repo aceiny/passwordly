@@ -15,9 +15,9 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe());
   app.use(
     cookieParser(process.env.COOKIE_SECRET, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
+      httpOnly: false,
+      secure: false,
+      sameSite: "lax",
     }),
   );
   const config = new DocumentBuilder()
@@ -32,6 +32,6 @@ async function bootstrap() {
     origin: true,
     credentials: true,
   });
-  await app.listen(3000);
+  await app.listen(3010);
 }
 bootstrap();
