@@ -4,7 +4,7 @@ import { useToast } from '@/components/ui/use-toast';
 import { api } from '@/http.config';
 import Frame from '@/public/loginFrame.png'
 import { useMutation } from '@tanstack/react-query';
-import { AxiosError } from 'axios';
+import axios, { AxiosError } from 'axios';
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation';
@@ -14,16 +14,23 @@ export default function Page() {
     const {toast} = useToast();
     const router = useRouter()
     const loginMutation = useMutation({
-        mutationFn: async (values: { username: string; password: string }) => {
-            const response = await api.post('/user/signin', values);
-            return response.data;
+        mutationFn: async (values: { username: string; password: string }) => {//
+            const response = await fetch(process.env.NEXT_PUBLIC_API_URL+'/user/signin', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                credentials: "include",
+                body: JSON.stringify(values)
+            });
+            return response.json();
         },
         onSuccess: () => {
             toast({
                 title: "Login Successful",
                 description: "You will be rediracted",
               })
-            router.push('/');
+            router.push('/')
         },
         onError: (error: AxiosError<any>) => {
             const errMessage = (typeof error.response?.data.message) === 'string' ? error.response?.data.message : error.response?.data.message[0];

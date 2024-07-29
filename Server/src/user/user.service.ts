@@ -19,9 +19,11 @@ export class UserService {
 
   setCookie(token: string, res: Response) {
     res.cookie(process.env.COOKIE_NAME || "jwt", token, {
+      sameSite: 'lax',
+      path: '/',
+      secure: false,
       httpOnly: false,
-      secure: true,
-      sameSite: "strict",
+      expires : new Date(Date.now() + 3600000 * 5),
       maxAge: 3600000 * 5, // dont forget to update this later
     });
   }
