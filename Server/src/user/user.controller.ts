@@ -36,6 +36,7 @@ export class UserController {
     return {
       message: "User created successfully",
       status: HttpStatus.CREATED,
+      token
     };
   }
   @Post("/signin")

@@ -14,7 +14,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.useGlobalPipes(new ValidationPipe());
   app.use(
-    cookieParser(process.env.COOKIE_SECRET, {
+    cookieParser(/*process.env.COOKIE_SECRET, {
       maxAge: 18000 * 1000, // 5 hours in milliseconds
       domain: 'axeiny.tech',
       path: '/',
@@ -22,7 +22,7 @@ async function bootstrap() {
       sameSite: 'none',
       secure: true, // Only sent over HTTPS
       httpOnly: false, // Not accessible via JavaScript
-    }),
+    }*/),
   );
   const config = new DocumentBuilder()
     .setTitle("survision")
