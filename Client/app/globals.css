@@ -117,5 +117,5 @@ body {
   background: #f1f1f1;
 }
 .AddAppInput{
-  @apply w-full bg-[#f6f6f6] p-3 rounded-lg outline-none text-black;
+  @apply w-full bg-[#f6f6f6] p-3 rounded-lg outline-none text-black shadow-[0px_0px_4px_0px_#00000040];
 }

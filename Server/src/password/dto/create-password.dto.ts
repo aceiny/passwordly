@@ -17,4 +17,8 @@ export class CreatePasswordDto {
   @ApiProperty()
   @IsOptional()
   url: string;
+
+  @ApiProperty()
+  @IsOptional()
+  icon: string;
 }

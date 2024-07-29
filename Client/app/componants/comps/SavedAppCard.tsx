@@ -8,8 +8,8 @@ const SavedAppCard = ({data} : any) => {
   return (
     <div className='SavedAppCard min-w-[500px] '>
         <section className='flex items-center gap-4'>
-            <Image
-                src={DiscordLogo}
+            <img
+                src={data.icon}
                 width={42}
                 height={42}
                 alt='App Logo'
