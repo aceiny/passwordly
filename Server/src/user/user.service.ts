@@ -18,15 +18,7 @@ export class UserService {
   ) {}
 
     setCookie(token: string, res: Response) {
-      res.cookie(process.env.COOKIE_NAME || "jwt", token, {
-        sameSite: 'lax',
-        path: '/',
-        domain: process.env.COOKIE_DOMAIN,
-        secure: false,
-        httpOnly: false,
-        expires : new Date(Date.now() + 3600000 * 5),
-        maxAge: 3600000 * 5, // dont forget to update this later
-      });
+      res.cookie(process.env.COOKIE_NAME || "jwt", token);
     }
 
   async create(createUserDto: CreateUserDto) {

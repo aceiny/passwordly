@@ -15,9 +15,13 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe());
   app.use(
     cookieParser(process.env.COOKIE_SECRET, {
-      httpOnly: false,
-      secure: false,
-      sameSite: "lax",
+      maxAge: 18000 * 1000, // 5 hours in milliseconds
+      domain: 'axeiny.tech',
+      path: '/',
+      expires: new Date(Date.now() + 18000 * 1000),
+      sameSite: 'none',
+      secure: true, // Only sent over HTTPS
+      httpOnly: false, // Not accessible via JavaScript
     }),
   );
   const config = new DocumentBuilder()

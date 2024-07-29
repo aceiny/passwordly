@@ -19,6 +19,7 @@ export default function Page() {
             return response.data;
         },
         onSuccess: () => {
+            console.log(document.cookie.split(';')[0].split('=')[1])
             toast({
                 title: "Login Successful",
                 description: "You will be rediracted",
