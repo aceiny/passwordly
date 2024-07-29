@@ -25,7 +25,7 @@ const SavedAppList = () => {
         <DialogTrigger className='w-full'>
           {
               data && data.map((app : any) => (
-              <div className='w-full h-full' onClick={()=>setAppId(app.id)}><SavedAppCard key={app.id}  data={app} /></div>
+              <div className='w-full h-full' onClick={()=>setAppId(app.id)} key={app.id}><SavedAppCard key={app.id}  data={app} /></div>
         ))
           }
         </DialogTrigger>

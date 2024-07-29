@@ -21,7 +21,7 @@ export class UserService {
     res.cookie(process.env.COOKIE_NAME || "jwt", token, {
       httpOnly: false,
       secure: true,
-      sameSite: "none",
+      sameSite: "strict",
       maxAge: 3600000 * 5, // dont forget to update this later
     });
   }

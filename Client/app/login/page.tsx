@@ -56,7 +56,7 @@ export default function Page() {
                 <input type="text" placeholder="username" name="username" className='bg-transparent w-full py-4 border-b outline-none text-black' />
                 <input type="password" placeholder="password" name='password' className='bg-transparent w-full py-4 border-b outline-none text-black' />
                 <button type='submit' className='bg-[#44448B] text-white font-bold py-4 px-10 rounded-lg border outline-none'>login</button>
-                <span className='text-black'>Don't have an account <Link href={'/signup'} className='text-blue-600 cursor-pointer'>signup</Link></span>
+                <span className='text-black'>Don&apos;t have an account <Link href={'/signup'} className='text-blue-600 cursor-pointer'>signup</Link></span>
             </form>
             <section className='h-screen'>
                 <Image src={Frame} alt="login frame" className='w-full h-full' />
