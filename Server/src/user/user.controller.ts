@@ -19,6 +19,7 @@ import { JwtAuthGuard } from "src/auth/guards/jwt-auth.guard";
 import { GetUser } from "src/auth/decorators/get-user.decorator";
 import { jwtPayload } from "src/auth/types/payload.type";
 import { ApiOperation, ApiTags } from "@nestjs/swagger";
+import { LoginUserDto } from "./dto/login-user.dto";
 @ApiTags("User")
 @Controller("user")
 export class UserController {
@@ -40,7 +41,7 @@ export class UserController {
   @Post("/signin")
   @ApiOperation({summary : "Login a user"})
   async login(
-    @Body() createUserDto: CreateUserDto,
+    @Body() createUserDto: LoginUserDto,
     @Res({ passthrough: true }) res: Response,
   ) {
     const token = await this.userService.login(createUserDto);

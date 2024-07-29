@@ -1,4 +1,4 @@
-import { ConflictException, Injectable } from "@nestjs/common";
+import { ConflictException, Injectable, InternalServerErrorException } from "@nestjs/common";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { UpdateUserDto } from "./dto/update-user.dto";
 import { Repository } from "typeorm";
@@ -8,6 +8,7 @@ import * as bcrypt from "bcrypt";
 import { JwtService } from "@nestjs/jwt";
 import { jwtPayload } from "src/auth/types/payload.type";
 import { Response } from "express";
+import { LoginUserDto } from "./dto/login-user.dto";
 @Injectable()
 export class UserService {
   constructor(
@@ -40,15 +41,21 @@ export class UserService {
     };
     return this.jwtService.sign(payload);
   }
-  async login(createUserDto: CreateUserDto) {
-    const user = await this.findOneByUsername(createUserDto.username);
-    if (!user) throw new ConflictException("Invalid credentials");
-    const isMatch = await bcrypt.compare(createUserDto.password, user.password);
-    if (!isMatch) throw new ConflictException("Invalid credentials");
-    const payload: jwtPayload = {
-      id: user.id,
-    };
-    return this.jwtService.sign(payload);
+  async login(createUserDto: LoginUserDto) {
+    try{
+      const user = await this.findOneByUsername(createUserDto.username , false , false);
+      if (!user) throw new ConflictException("Invalid credentials");
+      const isMatch = await bcrypt.compare(createUserDto.password, user.password);
+      if (!isMatch) throw new ConflictException("Invalid credentials");
+      const payload: jwtPayload = {
+        id: user.id,
+      };
+      return this.jwtService.sign(payload);
+    }
+    catch(err){
+      console.log(err)
+      throw new InternalServerErrorException('Something went wrong')
+    }
   }
   async findOne(
     userId: string,
@@ -68,6 +75,7 @@ export class UserService {
   async findOneByUsername(
     username: string,
     populate: boolean = false,
+    removePassword: boolean = true,
   ): Promise<User | null> {
     const relations = populate ? ["passwords"] : [];
     const user = await this.userRepository.findOne({
@@ -77,7 +85,7 @@ export class UserService {
       relations,
     });
     if (!user) return null;
-    user.password = undefined;
+    removePassword ? user.password = undefined : null
     return user;
   }
 
