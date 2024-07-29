@@ -18,7 +18,7 @@ export class UserService {
   ) {}
 
     setCookie(token: string, res: Response) {
-      res.cookie(process.env.COOKIE_NAME || "jwt", token , {
+      res.cookie(process.env.COOKIE_NAME || "jwt", token , {  
         maxAge: 60 * 24 * 60 * 60 * 1000, // 60 days unix-time
         httpOnly: true,
         secure: process.env.NODE_ENV !== 'development',

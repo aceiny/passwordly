@@ -1,5 +1,4 @@
 "use client"
-
 import { useToast } from '@/components/ui/use-toast';
 import { api } from '@/http.config';
 import Frame from '@/public/loginFrame.png'
@@ -9,7 +8,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation';
 import { FormEvent } from 'react';
-
+import {setCookie} from "cookies-next"
+import { cookies } from 'next/headers';
 export default function Page() {
     const {toast} = useToast();
     const router = useRouter()
@@ -18,8 +18,11 @@ export default function Page() {
             const response = await api.post('/user/signin', values);
             return response.data;
         },
-        onSuccess: () => {
-            console.log(document.cookie.split(';')[0].split('=')[1])
+        onSuccess: (data) => {
+            console.log(data)
+            setCookie('passoken', data.token , {
+                
+            })
             toast({
                 title: "Login Successful",
                 description: "You will be rediracted",
