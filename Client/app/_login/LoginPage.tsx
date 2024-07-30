@@ -9,8 +9,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation';
 import { FormEvent } from 'react';
 import {setCookie} from "cookies-next"
-import { cookies } from 'next/headers';
-export default function Page() {
+export default function LoginPage() {
     const {toast} = useToast();
     const router = useRouter()
     const loginMutation = useMutation({
@@ -19,15 +18,16 @@ export default function Page() {
             return response.data;
         },
         onSuccess: (data) => {
-            console.log(data)
             setCookie('passoken', data.token , {
-                
+                maxAge : 60 * 60 * 24 * 30,
+                secure : true ,
+                sameSite: true // or 'Lax'
             })
             toast({
                 title: "Login Successful",
                 description: "You will be rediracted",
               })
-            router.push('/')
+            location.reload()
         },
         onError: (error: AxiosError<any>) => {
             const errMessage = (typeof error.response?.data.message) === 'string' ? error.response?.data.message : error.response?.data.message[0];

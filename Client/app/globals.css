@@ -103,7 +103,7 @@ body {
   @apply text-white py-3 px-8 hover:scale-[1.05] hover:bg-[#6666664f] rounded-lg  transition-transform duration-200 cursor-pointer ;
 }
 .SavedAppCard {
-  @apply w-full justify-between flex px-5 hover:bg-[#f6f6f615] items-center cursor-pointer py-4 border-b;
+  @apply justify-between flex px-5 hover:bg-[#f6f6f615] items-center cursor-pointer py-4 border-b;
   transition: all 0.3s;
 }
 

@@ -32,7 +32,7 @@ export class UserController {
     @Res({ passthrough: true }) res: Response,
   ) {
     const token = await this.userService.create(createUserDto);
-    this.userService.setCookie(token, res);
+    //this.userService.setCookie(token, res);
     return {
       message: "User created successfully",
       status: HttpStatus.CREATED,
@@ -50,6 +50,7 @@ export class UserController {
     return {
       message: "User logged in successfully",
       status: HttpStatus.OK,
+      token
     };
   }
   @Get("")

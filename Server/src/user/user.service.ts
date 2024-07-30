@@ -20,7 +20,7 @@ export class UserService {
     setCookie(token: string, res: Response) {
       res.cookie(process.env.COOKIE_NAME || "jwt", token , {  
         maxAge: 60 * 24 * 60 * 60 * 1000, // 60 days unix-time
-        httpOnly: true,
+        httpOnly: false,
         secure: process.env.NODE_ENV !== 'development',
         sameSite: true,
       });
@@ -53,7 +53,7 @@ export class UserService {
       return this.jwtService.sign(payload);
     }
     catch(err){
-      console.log(err)
+      if(err instanceof ConflictException) throw err
       throw new InternalServerErrorException('Something went wrong')
     }
   }

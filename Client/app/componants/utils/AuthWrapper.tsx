@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import LoadingPage from './LoadingPage'
 import { getCookie, deleteCookie } from 'cookies-next'
 import { api } from '@/http.config'
+import LoginPage from '@/app/_login/LoginPage'
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL
 
@@ -44,13 +45,11 @@ const AuthWrapper: React.FC<AuthWrapperProps> = ({
 
   useEffect(() => {
     checkAuth()
-  }, [])
-
-  useEffect(() => {
-    if (!isChecking && !auth) {
-      router.push('/login')
-    }
   }, [isChecking, auth, router])
+
+  if (!isChecking && !auth) {
+    return <LoginPage/>
+  }
 
   if (loading || isChecking) {
     return <LoadingPage />
